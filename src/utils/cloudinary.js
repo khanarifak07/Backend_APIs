@@ -16,7 +16,6 @@ const uploadFilesOnCloudinary = async (localFilePath) => {
     });
     //file uploaded successfully
     console.log("File Uploaded Successfully", response.url);
-
     //check if the file exists or not before unlink the file after successfull upload
     if (fs.existsSync(localFilePath)) {
       //unlink file after success
