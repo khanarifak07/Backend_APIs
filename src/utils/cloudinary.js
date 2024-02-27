@@ -16,12 +16,25 @@ const uploadFilesOnCloudinary = async (localFilePath) => {
     });
     //file uploaded successfully
     console.log("File Uploaded Successfully", response.url);
-    //unlink file after success
-    fs.unlinkSync(localFilePath);
+
+    //check if the file exists or not before unlink the file after successfull upload
+    if (fs.existsSync(localFilePath)) {
+      //unlink file after success
+      fs.unlinkSync(localFilePath);
+      console.log("File Unlink After Success", localFilePath);
+    } else {
+      console.warn("Local File Not Found", localFilePath);
+    }
     return response;
   } catch (error) {
-    //unlink file after faillure
-    fs.unlinkSync(localFilePath);
+    //check file exists or not before unlink after failure
+    if (fs.existsSync(localFilePath)) {
+      //unlink file after faillure
+      fs.unlinkSync(localFilePath);
+      console.log("File unlink after failure", localFilePath);
+    } else {
+      console.warn("File nor found to unlink after failure", localFilePath);
+    }
     return null;
   }
 };
